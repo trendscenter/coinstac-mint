@@ -16,11 +16,6 @@ export default function ConsortiumDetailsPage() {
     const { data, status, refetch, isLeader } = useConsortiumDetails();
     const { studyConfiguration, members, activeMembers, readyMembers, leader, title, description } = data;
 
-    interface StudyConfiguration {
-        computation: any;
-        consortiumLeaderNotes: string;
-    }
-
     const isActive = activeMembers.some((member) => member.id === userId);
 
     return (
@@ -43,16 +38,16 @@ export default function ConsortiumDetailsPage() {
 
                     {/* Members Section */}
                     <Members members={members} activeMembers={activeMembers} readyMembers={readyMembers} leader={leader} />
-                    <ConsortiumLeaderNotes consortiumLeaderNotes={(studyConfiguration as StudyConfiguration).consortiumLeaderNotes} />
+                    {studyConfiguration && <ConsortiumLeaderNotes consortiumLeaderNotes={studyConfiguration.consortiumLeaderNotes} />}
                 </Grid>
                 <Grid size={{ sm: 6, md: 4 }}>
                     {/* Latest Run M */}
                     <LatestRun />
                     {/* Study Configuration Section */}
-                    <StudyConfiguration studyConfiguration={studyConfiguration} />
+                    {studyConfiguration && <StudyConfiguration studyConfiguration={studyConfiguration} />}
                 </Grid>
                 <Grid size={{ sm: 12, md: 4 }}>
-                    <ComputationDisplay computation={(studyConfiguration as StudyConfiguration).computation} />
+                    {studyConfiguration && <ComputationDisplay computation={studyConfiguration.computation} />}
                 </Grid>
             </Grid>
         </ConsortiumDetailsProvider>

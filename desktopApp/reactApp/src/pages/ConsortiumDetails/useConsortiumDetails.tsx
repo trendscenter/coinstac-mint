@@ -1,6 +1,6 @@
 import { useEffect, useState, useCallback } from "react";
 import { useCentralApi } from "../../apis/centralApi/centralApi";
-import { PublicUser } from "../../apis/centralApi/generated/graphql";
+import { PublicUser, StudyConfiguration } from "../../apis/centralApi/generated/graphql";
 import { useParams } from "react-router-dom";
 import { useUserState } from "../../contexts/UserStateContext";
 
@@ -9,7 +9,7 @@ const useConsortiumDetails = () => {
         consortiumDetailsChanged
     } } = useCentralApi();
     const consortiumId = useParams<{ consortiumId: string }>().consortiumId as string;
-    const [studyConfiguration, setStudyConfiguration] = useState({});
+    const [studyConfiguration, setStudyConfiguration] = useState<StudyConfiguration>();
     const [members, setMembers] = useState<PublicUser[]>([]);
     const [activeMembers, setActiveMembers] = useState<PublicUser[]>([]);
     const [readyMembers, setReadyMembers] = useState<PublicUser[]>([]);
