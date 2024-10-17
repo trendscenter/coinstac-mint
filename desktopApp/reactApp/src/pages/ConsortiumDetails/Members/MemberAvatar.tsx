@@ -7,8 +7,8 @@ import GreyShield from '../../../assets/grey_shield.svg';
 const UserColor: string[] = [
   "#2FA84F",
   "#FFBA08",
-  "#F25919",
   "#FF007A",
+  "#F25919",
   "#B91372",
   "#440381",
   "#016572"
