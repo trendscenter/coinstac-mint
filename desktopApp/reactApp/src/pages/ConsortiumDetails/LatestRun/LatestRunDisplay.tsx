@@ -26,8 +26,8 @@ export function LatestRunDisplay({ latestRun, loading, navigateToRunDetails }: R
                     </Typography>
                     <Typography variant="body2" color="textSecondary">
                         <strong>Status:</strong> <strong style={{color: "#2FB600"}}>{latestRun.status} </strong><br />
-                        <strong>Created At:</strong> {new Date(Number(latestRun.createdAt)).toLocaleString()} <br />
-                        <strong>Last Updated:</strong> {new Date(Number(latestRun.lastUpdated)).toLocaleString()}<br />
+                        <span style={{fontSize: '11px'}}><strong>Created At:</strong> {new Date(Number(latestRun.createdAt)).toLocaleString()}</span><br />
+                        <span style={{fontSize: '11px'}}><strong>Last Updated:</strong> {new Date(Number(latestRun.lastUpdated)).toLocaleString()}</span><br />
                         <span style={{fontSize: '11px',  color: '#aaa'}}>{latestRun.runId}</span>
                     </Typography>
                 </Box>
