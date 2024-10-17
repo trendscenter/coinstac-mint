@@ -1,6 +1,7 @@
 import React, { useRef } from 'react';
 import { Box, Button, InputAdornment, TextField, Tooltip, Typography } from "@mui/material";
 import EditIcon from '@mui/icons-material/Edit';
+import WarningIcon from '@mui/icons-material/Warning';
 
 interface DirectorySelectDisplayProps {
     directory: string;
@@ -37,23 +38,32 @@ export function DirectorySelectDisplay({
     }
 
     const filePathAbbr = (path: string) => {
-        var parts = path.split('/').slice(-3);
-        var newPath = ( parts.length == 3 ? '/' : '' ) + parts.join('/');
-        return '...'+newPath;
+        if(path){
+            var parts = path.split('/').slice(-3);
+            var newPath = ( parts.length == 3 ? '/' : '' ) + parts.join('/');
+            return '...'+newPath;
+        }else{
+            return 'Enter Your Data Directory Path'
+        }
     }
 
     return (
         <>
-        {directory ? 
             <Box p={2} border={1} borderRadius={2} borderColor="grey.300" marginBottom={2} bgcolor={'white'}>
-            <Typography variant="h6">
-                Data Directory
-            </Typography>
+            <Box display="flex" flexDirection="row" justifyContent="space-between" alignItems='center'>
+                <Typography variant="h6">
+                    Data Directory
+                </Typography>
+                {!directory && <Tooltip title="You have not entered your Data Directory Path">
+                    <WarningIcon color="warning" />
+                </Tooltip>}
+            </Box>
             {/* TextField for manual directory input, disabled unless in edit mode */}
             <TextField
                 size="small"
                 inputRef={inputRef}
-                value={isEditing ? directory || "" : filePathAbbr(directory) || ""}
+                placeholder='Enter Your Data Directory Path'
+                value={isEditing ? directory : filePathAbbr(directory)}
                 onFocus={handleFocus}
                 onChange={(e) => onDirectoryChange(e.target.value)}
                 multiline={isEditing}
@@ -78,15 +88,17 @@ export function DirectorySelectDisplay({
                     ),
                 }}
             />
+            {!directory && !isEditing && <Box marginBottom="0.5rem"><Typography fontSize='small' align='center'>or</Typography></Box>}
             <Box display="flex" gap={1}>
                 {/* Button to trigger the Electron directory picker */}
                 {!isEditing && <Button
                     variant="contained"
                     color="primary"
+                    fullWidth={directory ? false : true}
                     onClick={onOpenDirectoryDialog}
                     style={{whiteSpace: 'nowrap', fontSize: '10px', backgroundColor: '#0066FF'}}
                 >
-                    Re-Select Directory
+                    Browse To Select Data Directory
                 </Button>}
                 {/* Row of Edit, Save, and Cancel buttons */}
                 {isEditing && (
@@ -98,7 +110,7 @@ export function DirectorySelectDisplay({
                         Cancel
                     </Button>
                 )}
-                {isEditing && isDifferent && (
+                {isDifferent && (
                     <Button
                         variant="contained"
                         color="secondary"
@@ -110,19 +122,7 @@ export function DirectorySelectDisplay({
                     </Button>
                 )}
             </Box>
-        </Box> :  
-        <Button
-        variant="contained"
-        sx={{
-            marginBottom: '1rem', 
-            backgroundColor: '#2FB600',
-            borderRadius: '1.2rem'
-        }}
-        fullWidth
-        onClick={onOpenDirectoryDialog}
-        style={{backgroundColor: '#0066FF'}}>
-            Select Data Directory
-        </Button>}
+        </Box> 
         </>
     );
 }
