@@ -1,6 +1,6 @@
 import { Box, Typography, IconButton } from "@mui/material";
 import { HashLink } from 'react-router-hash-link';
-import type { Computation }  from "../../../apis/centralApi/generated/graphql";
+import type { Computation } from "../../../apis/centralApi/generated/graphql";
 import { Maybe } from "graphql/jsutils/Maybe";
 import ComputationSelect from "./ComputationSelect/ComputationSelect";
 import { useConsortiumDetailsContext } from "../ConsortiumDetailsContext";
@@ -12,8 +12,9 @@ interface ComputationDisplayProps {
 }
 
 export default function Computation({ computation }: ComputationDisplayProps) {
-    const { isLeader } = useConsortiumDetailsContext();
+    const { isLeader, refetch } = useConsortiumDetailsContext();
     const [copied, setCopied] = useState(false);
+
 
     if (!computation) {
         return (
@@ -21,9 +22,9 @@ export default function Computation({ computation }: ComputationDisplayProps) {
                 <Typography variant="h6">Computation</Typography>
                 <Typography variant="body1">No computation selected</Typography>
                 <Box marginTop="1rem">
-                {isLeader && (
-                     <ComputationSelect computation={computation} />
-                )}
+                    {isLeader && (
+                        <ComputationSelect computation={computation} refetch={refetch} />
+                    )}
                 </Box>
             </Box>
         );
@@ -50,7 +51,7 @@ export default function Computation({ computation }: ComputationDisplayProps) {
                 </Box>
                 {isLeader && (
                     <Box marginTop='1rem'>
-                        <ComputationSelect computation={computation} />
+                        <ComputationSelect computation={computation} refetch={refetch} />
                     </Box>
                 )}
             </Box>

@@ -70,7 +70,7 @@ export const useMembers = ({ members, activeMembers, readyMembers, leader }: Use
         } catch (error) {
             console.error("Failed to leave the consortium:", error);
         } finally {
-            navigate('/consortiumList');
+            navigate('/consortium/list');
         }
     };
     
