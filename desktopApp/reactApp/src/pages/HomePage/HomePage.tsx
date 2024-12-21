@@ -23,8 +23,9 @@ const HomePage: React.FC = () => {
       }}>
         <h2>Welcome to COINSTAC</h2>
         <Box>
-          <Button size='small' variant='outlined' sx={{marginRight: '1rem'}} onClick={() => navigate('/computationList')}>View Computation List</Button>
-          <Button size='small' variant='contained' onClick={() => navigate('/consortiumList')}>View Consortium List</Button>
+        <Button size='small' variant='outlined' sx={{marginRight: '1rem'}} onClick={() => navigate('/consortium/create')}>Create Consortium</Button>
+          <Button size='small' variant='outlined' sx={{marginRight: '1rem'}} onClick={() => navigate('/computation/list')}>View Computation List</Button>
+          <Button size='small' variant='contained' onClick={() => navigate('/consortium/list')}>View Consortium List</Button>
         </Box>
       </Box>
       <iframe 
